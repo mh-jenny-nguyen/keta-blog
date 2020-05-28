@@ -1,0 +1,23 @@
+html, body {
+	font-family: 'Lora', serif;
+	font-size: 12px;
+	color: $cl-black;
+    font-weight: 300;
+    
+    @media screen and (min-width: $screen-sm) {
+        font-size: 14px;
+    }
+}
+
+* {
+	box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: $cl-hl;
+}
+
+address {
+    line-height: 1.713;
+}

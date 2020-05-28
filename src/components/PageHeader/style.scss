@@ -1,0 +1,23 @@
+.page-header {
+    padding: toRem(45) toRem(26) toRem(35) toRem(26);
+    text-align: center;
+    margin-left: 16px;
+    margin-right: 16px;
+    
+    &__title {
+        font-weight: 300;
+        font-size: toRem(38);
+        margin-top: 0;
+        margin-bottom: toRem(28);
+        line-height: 1.2;
+    }
+    
+    &__sub-title {
+        font-weight: 300;
+        line-height: 1.713;
+    }
+
+    @media screen and (min-width: $screen-xs) {
+        padding: toRem(45) toRem(66) toRem(35) toRem(66);
+    }
+}
