@@ -18,7 +18,6 @@ const Detail = (props) => {
 	} 
 
 	let {title, category, author, dateCreated, content} = detail;
-	console.log(author);
 
 	const richTextOptions = {
   		renderNode: {

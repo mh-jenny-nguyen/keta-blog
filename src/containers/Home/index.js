@@ -4,12 +4,12 @@ import PagePagination from '../../components/PagePagination';
 import { withPostConsumer } from "../../context";
 
 const Home = ({context}) => {
-	const {currentPosts, currentPage, numberPerPage, totalOfPost, handleLoadPage} = context;
+	const {currentPosts, currentPage, numberPerPage, totalOfPage, handleLoadPage} = context;
 
 	return (
 		<React.Fragment>
 			<Posts dataList={currentPosts} />
-			<PagePagination numberPerPage={numberPerPage}  totalOfPage={totalOfPost} currentPage={currentPage} onLoadPage={handleLoadPage} />
+			<PagePagination numberPerPage={numberPerPage}  totalOfPage={totalOfPage} currentPage={currentPage} handleLoadPage={handleLoadPage} />
 		</React.Fragment>
 	)
 }

@@ -1,32 +1,40 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
+import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import $ from "jquery";
 
 const PagePagination = (props) => {
+	let pages = [];
+
+	const handleClick = (e) => {
+		$('html, body').animate({scrollTop: '0px'}, 0);
+		props.handleLoadPage(parseInt(e.target.dataset.page));
+	}
+
+	for (let i=1; i <= props.totalOfPage; i++) {
+		if(i === props.currentPage) {
+			pages.push(<span className="page-navigation__item --page-number --current" key={`pn-${i}`}>{i}</span>);
+		} else {
+			pages.push(<span className="page-navigation__item --page-number" data-page={i} key={`pn-${i}`} onClick={handleClick}>{i}</span>)
+		}
+	}
+
 	return (
 		<div id="page-navigation">
 			<nav className="page-navigation">
 				<div className="page-navigation__wrapper">
 					{ props.currentPage > 1 &&
-						<a
-						href="!#"
-						className="page-navigation__item --page-previous"
-						><FontAwesomeIcon icon={faChevronLeft} /></a>
+						<span data-page={props.currentPage - 1}
+						className="page-navigation__item --page-previous" onClick={handleClick}
+						><FontAwesomeIcon icon={faChevronLeft} /></span>
 					}
-
-					<span
-						href="!#"
-						className="page-navigation__item --page-number --current"
-						>1</span>
-					<a
-						href="!#"
-						className="page-navigation__item --page-number">2</a>
 					
-					{ props.currentPage >= props.totalOfPage  &&
-						<a
-							href="!#"
-							className="page-navigation__item --page-next"
-							><FontAwesomeIcon icon={faChevronRight} /></a>
+					{pages}
+
+					{ props.currentPage < props.totalOfPage  &&
+						<span data-page={props.currentPage + 1}
+							className="page-navigation__item --page-next" onClick={handleClick}
+							><FontAwesomeIcon icon={faChevronRight} /></span>
 					}
 				</div>
 			</nav>

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Client from './contentful';
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
 const PostContext = React.createContext();
 
@@ -9,13 +10,14 @@ class PostProvider extends Component {
 		filterPosts: [],
 		currentPosts: [],
 		loading: true,
-		keyword: '',
 		featuredPost: [],
 		currentPage: 1,
 		previousPage: 1,
 		nextPage: 2,
 		numberPerPage: 8,
 		totalOfPost: 0,
+		totalOfPage: 0,
+		keyword: '',
 	}
 
 	getData = async () => {
@@ -34,7 +36,9 @@ class PostProvider extends Component {
 				loading: false,
 				featuredPost: featuredPost,
 				TotalOfPost: posts.length,
-				currentPosts: currentPosts
+				currentPosts: currentPosts,
+				totalOfPage: Math.ceil(posts.length / this.state.numberPerPage)
+
 			});
 
 		} catch (error) {
@@ -58,6 +62,7 @@ class PostProvider extends Component {
 	}
 
 	handleLoadPage =  (page = 1) => {
+		debugger;
 		let currentPosts = this.getPostByPage(page);
 
 		this.setState({
@@ -65,12 +70,8 @@ class PostProvider extends Component {
 			currentPosts: currentPosts,
 			previousPage: (page > 1 ? page - 1 : page ),
 			nextPage: (page < this.state.totalOfPost ? page + 1 : this.state.totalOfPost),
-		}, () => {
-	        this.history.push(`/page/${page}`);
-	    });
-
-		return true;
-	}
+		});
+ 	}
 
 	componentDidMount () {
 		this.getData();
@@ -117,9 +118,37 @@ class PostProvider extends Component {
 		return string;
 	} 
 
+	filterPostByKeyWord = (keyword) => {
+		let filterPosts = [];
+
+		this.state.posts.forEach( post => {
+			let flag = false;
+			keyword = keyword.toLowerCase();
+
+			if (post.title.toLowerCase().includes(keyword) || post.summary.toLowerCase().includes(keyword)) {
+				flag = true
+			} else {
+				let content = documentToHtmlString(post.content);
+
+				if(content.toLowerCase().includes(keyword)) {
+					flag = true;
+				}
+			}
+
+			if(flag) {
+				filterPosts.push(post);
+			}
+		});
+
+		this.setState({
+			keyword: keyword,
+			filterPosts: filterPosts
+		});
+	}
+ 
 	render() {
 		return(
-			<PostContext.Provider value={{ ...this.state, getPost: this.getPost, handleLoadPage: this.handleLoadPage, getPostByPage: this.getPostByPage }}>
+			<PostContext.Provider value={{ ...this.state, getPost: this.getPost, handleLoadPage: this.handleLoadPage, getPostByPage: this.getPostByPage, filterPostByKeyWord: this.filterPostByKeyWord }}>
 				{this.props.children}
 			</PostContext.Provider>
 		);

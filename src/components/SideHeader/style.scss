@@ -112,7 +112,7 @@
     }
     
     &__search-toogle:checked ~  &__form &__form-input {
-        width: 220px;
+        width: 160px;
         opacity: 1;
     }
     
@@ -134,4 +134,11 @@
             font-size: 12px;
         }
     } 
+
+    @media screen and (min-width: $screen-sm) {
+        &__search-toogle:checked ~  &__form &__form-input {
+            width: 220px;
+            opacity: 1;
+        }
+    }
 }

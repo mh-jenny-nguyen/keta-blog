@@ -5,12 +5,23 @@ import { faSearch, faBars } from "@fortawesome/free-solid-svg-icons";
 import { useCallback } from 'react';
 import $ from "jquery";
 import {Link} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 const SideHeader = (props) => {
+	const {history, searchPage} = props;
+
 	const toogleClass = useCallback((e) => {
 		let target = e.target.dataset.target;
 		$(`#${target}`).toggleClass('--hidden');
-	});
+	}, []);
+	
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		let keyword = $('.top-side-bar__form-input').val();
+		props.onSearch(keyword);
+		history.push(`/${searchPage}`);
+	}
 
 	return (
 			<React.Fragment>
@@ -20,7 +31,7 @@ const SideHeader = (props) => {
 				<label htmlFor="toogle-search"  className="top-side-bar__search-icon"><FontAwesomeIcon icon={faSearch} /></label>
 				<input type="checkbox" id="toogle-search" className="top-side-bar__search-toogle" />
 
-				<form action="" className="top-side-bar__form" id="form-search">
+				<form className="top-side-bar__form" id="form-search" onSubmit={handleSubmit}>
 					<div className="top-side-bar__form-wrapper">
 						<input
 							type="text"
@@ -69,4 +80,4 @@ const SideHeader = (props) => {
 	)
 }
 
-export default SideHeader;
+export default withRouter(SideHeader);

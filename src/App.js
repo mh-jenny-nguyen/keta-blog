@@ -8,6 +8,7 @@ import Portfolio from './containers/Portfolio';
 import SocialLife from './containers/SocialLife';
 import ContactUs from './containers/ContactUs';
 import Detail from './containers/Detail';
+import Search from './containers/Search';
 import ScrollToTop from './components/ScrollToTop';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
             <Route path="/portfolio" component={Portfolio} />
             <Route path="/contact-us" component={ContactUs} />
             <Route exact path="/detail/:slug" component={Detail} />
+            <Route exact path="/search" component={Search} />
           </StandardLayout>
         </div>
       </ScrollToTop>

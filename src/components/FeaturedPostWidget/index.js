@@ -5,8 +5,7 @@ import FeaturedPostItem from "./item";
 const FeaturedPostWidget = ({context}) => {
 
 	const {featuredPost} = context;
-	console.log(featuredPost);
-
+	
 	let featuredPostList = featuredPost.map( item => {
 		return (
 			<FeaturedPostItem key={item.id} {...item} />
