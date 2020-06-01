@@ -1,0 +1,27 @@
+.page-not-found {
+    min-height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: toRem(35) toRem(26) toRem(35) toRem(26);
+    margin-left: 16px;
+    margin-right: 16px;
+    
+    &__wrapper {
+        text-align: center;
+    }
+    
+    &__title {
+        font-size: toRem(38);
+    }
+    
+    &__sub-title {
+        font-size: toRem(18);
+        line-height: 1.713;
+    }
+    
+    @media screen and (min-width: 576px){
+        padding: toRem(55) toRem(66) toRem(55) toRem(66);
+        min-height: 400px;
+    }
+}
